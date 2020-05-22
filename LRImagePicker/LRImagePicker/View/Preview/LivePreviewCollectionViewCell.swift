@@ -8,7 +8,7 @@
 
 import UIKit
 import PhotosUI
-
+@available(iOS 9.1, *)
 class LivePreviewCollectionViewCell: PreviewCollectionViewCell {
     let livePhotoView = PHLivePhotoView()
     let badgeView = UIImageView()
@@ -49,7 +49,7 @@ class LivePreviewCollectionViewCell: PreviewCollectionViewCell {
         return livePhotoView
     }
 }
-
+@available(iOS 9.1, *)
 extension LivePreviewCollectionViewCell: PHLivePhotoViewDelegate {
     func livePhotoView(_ livePhotoView: PHLivePhotoView, willBeginPlaybackWith playbackStyle: PHLivePhotoViewPlaybackStyle) {
         // Hide badge view if we aren't in fullscreen

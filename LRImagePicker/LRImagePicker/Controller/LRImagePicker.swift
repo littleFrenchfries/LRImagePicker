@@ -106,6 +106,4 @@ extension ImagePickerController: ImagePickerControllerDelegate {
     public func imagePicker(didCancelWithAssets assets: [PHAsset]) {
         LRImagePicker.onCancel?(assets)
     }
-    
-    
 }

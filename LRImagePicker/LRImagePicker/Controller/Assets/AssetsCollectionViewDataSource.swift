@@ -97,10 +97,14 @@ class AssetsCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             cell.settings = settings
         }
         // 给 Live Photo 添加一个标记
-        if (asset.mediaSubtypes == .photoLive) {
-            cell?.liveImageView.image = PHLivePhotoView.livePhotoBadgeImage(options: PHLivePhotoBadgeOptions.overContent)
-        }else {
-            cell?.liveImageView.image = nil
+        if #available(iOS 9.1, *) {
+            if (asset.mediaSubtypes == .photoLive) {
+                cell?.liveImageView.image = PHLivePhotoView.livePhotoBadgeImage(options: PHLivePhotoBadgeOptions.overContent)
+            }else {
+                cell?.liveImageView.image = nil
+            }
+        } else {
+            // Fallback on earlier versions
         }
         // Mark: 根据图片大小请求图片
         cell?.tag = Int(imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: settings.fetch.preview.photoOptions) { (image, _) in

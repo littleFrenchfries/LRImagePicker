@@ -204,29 +204,47 @@ extension PreviewCollectionViewController: UICollectionViewDelegateFlowLayout, U
         }
         if isFristLoadCell {
             settings.fetch.preview.photoOptions.deliveryMode = .opportunistic
-            settings.fetch.preview.livePhotoOptions.deliveryMode = .opportunistic
+            if #available(iOS 9.1, *) {
+                settings.fetch.preview.livePhotoOptions.deliveryMode = .opportunistic
+            }
             settings.fetch.preview.videoOptions.deliveryMode = .automatic
         }else {
             settings.fetch.preview.photoOptions.deliveryMode = .fastFormat
-            settings.fetch.preview.livePhotoOptions.deliveryMode = .fastFormat
+            if #available(iOS 9.1, *) {
+                settings.fetch.preview.livePhotoOptions.deliveryMode = .fastFormat
+            }
             settings.fetch.preview.videoOptions.deliveryMode = .fastFormat
         }
         let asset = fetchResult[indexPath.row]
-        switch (asset.mediaType, asset.mediaSubtypes) {
-        case (.video, _):
-            dataSource?.loadVieo(for: asset, in: cell as? VideoPreviewCollectionViewCell)
-        case (.image, .photoLive):
-            if settings.fetch.preview.showLivePreview {
-                dataSource?.load3dImage(for: asset, in: cell as? LivePreviewCollectionViewCell)
-            }else {
+        if #available(iOS 9.1, *) {
+            switch (asset.mediaType, asset.mediaSubtypes) {
+            case (.video, _):
+                dataSource?.loadVieo(for: asset, in: cell as? VideoPreviewCollectionViewCell)
+            case (.image, .photoLive):
+                if settings.fetch.preview.showLivePreview {
+                    dataSource?.load3dImage(for: asset, in: cell as? LivePreviewCollectionViewCell)
+                }else {
+                    dataSource?.loadImage(for: asset, in: cell as? PreviewCollectionViewCell)
+                }
+            default:
                 dataSource?.loadImage(for: asset, in: cell as? PreviewCollectionViewCell)
             }
-        default:
-            dataSource?.loadImage(for: asset, in: cell as? PreviewCollectionViewCell)
+        } else {
+            switch (asset.mediaType, asset.mediaSubtypes) {
+            case (.video, _):
+                dataSource?.loadVieo(for: asset, in: cell as? VideoPreviewCollectionViewCell)
+            case (.image, _):
+                dataSource?.loadImage(for: asset, in: cell as? PreviewCollectionViewCell)
+            default:
+                dataSource?.loadImage(for: asset, in: cell as? PreviewCollectionViewCell)
+            }
         }
     }
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         dataSource?.cancelImageRequest(id: cell.tag)
+        if let cell = cell as? VideoPreviewCollectionViewCell {
+            cell.updateState(.paused)
+        }
     }
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if !settings.fastMode {
@@ -259,21 +277,35 @@ extension PreviewCollectionViewController: UICollectionViewDelegateFlowLayout, U
             let asset = fetchResult[self.currentIndex]
             isFristLoadCell = false
             settings.fetch.preview.photoOptions.deliveryMode = .opportunistic
-            settings.fetch.preview.livePhotoOptions.deliveryMode = .opportunistic
+            if #available(iOS 9.1, *) {
+                settings.fetch.preview.livePhotoOptions.deliveryMode = .opportunistic
+            }
             settings.fetch.preview.videoOptions.deliveryMode = .automatic
-            switch (asset.mediaType, asset.mediaSubtypes) {
-            case (.video, _): break
-            case (.image, .photoLive):
-                if settings.fetch.preview.showLivePreview {
-                    cell = collectionView.cellForItem(at: IndexPath(item: self.currentIndex, section: 0)) as! LivePreviewCollectionViewCell
-                    dataSource?.load3dImage(for: asset, in: cell as? LivePreviewCollectionViewCell)
-                }else {
+            if #available(iOS 9.1, *) {
+                switch (asset.mediaType, asset.mediaSubtypes) {
+                case (.video, _): break
+                case (.image, .photoLive):
+                    if settings.fetch.preview.showLivePreview {
+                        cell = collectionView.cellForItem(at: IndexPath(item: self.currentIndex, section: 0)) as! LivePreviewCollectionViewCell
+                        dataSource?.load3dImage(for: asset, in: cell as? LivePreviewCollectionViewCell)
+                    }else {
+                        cell = collectionView.cellForItem(at: IndexPath(item: self.currentIndex, section: 0)) as! PreviewCollectionViewCell
+                        dataSource?.loadImage(for: asset, in: cell)
+                    }
+                default:
                     cell = collectionView.cellForItem(at: IndexPath(item: self.currentIndex, section: 0)) as! PreviewCollectionViewCell
                     dataSource?.loadImage(for: asset, in: cell)
                 }
-            default:
-                cell = collectionView.cellForItem(at: IndexPath(item: self.currentIndex, section: 0)) as! PreviewCollectionViewCell
-                dataSource?.loadImage(for: asset, in: cell)
+            } else {
+                switch (asset.mediaType, asset.mediaSubtypes) {
+                case (.video, _): break
+                case (.image, _):
+                    cell = collectionView.cellForItem(at: IndexPath(item: self.currentIndex, section: 0)) as! PreviewCollectionViewCell
+                    dataSource?.loadImage(for: asset, in: cell)
+                default:
+                    cell = collectionView.cellForItem(at: IndexPath(item: self.currentIndex, section: 0)) as! PreviewCollectionViewCell
+                    dataSource?.loadImage(for: asset, in: cell)
+                }
             }
         }
     }

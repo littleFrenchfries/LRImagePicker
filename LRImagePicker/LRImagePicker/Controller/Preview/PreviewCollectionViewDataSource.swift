@@ -30,28 +30,48 @@ class PreviewCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let asset = fetchResult[indexPath.row]
         let cell: PreviewCollectionViewCell
-        switch (asset.mediaType, asset.mediaSubtypes) {
-        case (.video, _):
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(VideoPreviewCollectionViewCell.self), for: indexPath) as! VideoPreviewCollectionViewCell
-            if !settings.fastMode {
-                loadVieo(for: asset, in: cell as? VideoPreviewCollectionViewCell)
-            }
-        case (.image, .photoLive):
-            if settings.fetch.preview.showLivePreview {
-                cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(LivePreviewCollectionViewCell.self), for: indexPath) as! LivePreviewCollectionViewCell
+        if #available(iOS 9.1, *) {
+            switch (asset.mediaType, asset.mediaSubtypes) {
+            case (.video, _):
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(VideoPreviewCollectionViewCell.self), for: indexPath) as! VideoPreviewCollectionViewCell
                 if !settings.fastMode {
-                    load3dImage(for: asset, in: cell as? LivePreviewCollectionViewCell)
+                    loadVieo(for: asset, in: cell as? VideoPreviewCollectionViewCell)
                 }
-            }else {
+            case (.image, .photoLive):
+                if settings.fetch.preview.showLivePreview {
+                    cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(LivePreviewCollectionViewCell.self), for: indexPath) as! LivePreviewCollectionViewCell
+                    if !settings.fastMode {
+                        load3dImage(for: asset, in: cell as? LivePreviewCollectionViewCell)
+                    }
+                }else {
+                    cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(PreviewCollectionViewCell.self), for: indexPath) as! PreviewCollectionViewCell
+                    if !settings.fastMode {
+                        loadImage(for: asset, in: cell)
+                    }
+                }
+            default:
                 cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(PreviewCollectionViewCell.self), for: indexPath) as! PreviewCollectionViewCell
                 if !settings.fastMode {
                     loadImage(for: asset, in: cell)
                 }
             }
-        default:
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(PreviewCollectionViewCell.self), for: indexPath) as! PreviewCollectionViewCell
-            if !settings.fastMode {
-                loadImage(for: asset, in: cell)
+        } else {
+            switch (asset.mediaType, asset.mediaSubtypes) {
+            case (.video, _):
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(VideoPreviewCollectionViewCell.self), for: indexPath) as! VideoPreviewCollectionViewCell
+                if !settings.fastMode {
+                    loadVieo(for: asset, in: cell as? VideoPreviewCollectionViewCell)
+                }
+            case (.image, _):
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(PreviewCollectionViewCell.self), for: indexPath) as! PreviewCollectionViewCell
+                if !settings.fastMode {
+                    loadImage(for: asset, in: cell)
+                }
+            default:
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(PreviewCollectionViewCell.self), for: indexPath) as! PreviewCollectionViewCell
+                if !settings.fastMode {
+                    loadImage(for: asset, in: cell)
+                }
             }
         }
         return cell
@@ -84,6 +104,7 @@ class PreviewCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     /// - Parameter asset
     /// - Parameter cell
     ///
+    @available(iOS 9.1, *)
     func load3dImage(for asset: PHAsset, in cell: LivePreviewCollectionViewCell?) {
         // Mark:  取消滑出屏幕外的图片请求
         if let cell = cell, cell.tag != 0 {
@@ -135,7 +156,9 @@ class PreviewCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     static func registerCellIdentifiersForCollectionView(_ collectionView: UICollectionView?) {
         collectionView?.register(PreviewCollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(PreviewCollectionViewCell.self))
         collectionView?.register(VideoPreviewCollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(VideoPreviewCollectionViewCell.self))
-        collectionView?.register(LivePreviewCollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(LivePreviewCollectionViewCell.self))
+        if #available(iOS 9.1, *) {
+            collectionView?.register(LivePreviewCollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(LivePreviewCollectionViewCell.self))
+        }
     }
 }
 

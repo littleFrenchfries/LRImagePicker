@@ -85,6 +85,7 @@ public class Settings {
                 return options
             }()
             // Mark: 3d图片
+            @available(iOS 9.1, *)
             public lazy var livePhotoOptions: PHLivePhotoRequestOptions = {
                 let options = PHLivePhotoRequestOptions()
                 // Mark: 允许从iCloud云中下载sd图片
