@@ -12,7 +12,7 @@ LRImagePicker is a imagePicker
 ```  
 2. Settings实例有许多自定义设置，可以仔细查看源码，源码中有详细注释，这里先介绍一些常用设置：
 
-* 1) 提供给外部，让外部决定需要什么资源 （照片 视频 音频） 注：默认有照片视频
+* 1) 提供给外部，让外部决定需要什么资源 （照片 视频） 注：默认有照片视频
 ```  
 
 setting.fetch.assets.supportedMediaTypes = [.image, .video]  
