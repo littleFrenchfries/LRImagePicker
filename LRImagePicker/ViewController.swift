@@ -16,7 +16,37 @@ class ViewController: UIViewController {
     }
 
     @IBAction func singalClick(_ sender: Any) {
-        LRImagePicker.go(finish: { (assets, isOriginal) in
+        let setting = Settings()
+        // Mark: 提供给外部，让外部决定需要什么资源 （照片 视频 音频） 注：默认有照片视频
+        setting.fetch.assets.supportedMediaTypes = [.image, .video]
+        // Mark: 是否展示3dtouch图片
+        setting.fetch.preview.showLivePreview = true
+        // Mark: 相册cell的高度
+        setting.list.albumsCellH = 58
+        // Mark: cell之间的间隙大小
+        setting.list.spacing = 100
+        // Mark:cell一行有多少个
+        setting.list.cellsPerRow = {(verticalSize, horizontalSize) in
+            switch (verticalSize, horizontalSize) {
+            case (.compact, .regular):
+                return 4
+            case (.compact, .compact):
+                return 5
+            case (.regular, .regular):
+                return 7
+            default:
+                return 4
+            }
+        }
+        // Mark: 主题背景颜色 默认白色
+        setting.theme.backgroundColor = .white
+        // Mark: 主题导航栏颜色 默认白色
+        setting.theme.navigationBarColor = .white
+        // Mark:  可以选择的最多张数 默认9张
+        setting.selection.max = 9
+        // Mark:  可以选择最少的张数 默认为1张
+        setting.selection.min = 1
+        LRImagePicker.go(settings:setting ,finish: { (assets, isOriginal) in
             print("\(assets)\(isOriginal)")
         })
     }
