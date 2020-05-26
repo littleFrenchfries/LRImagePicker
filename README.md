@@ -12,14 +12,14 @@ LRImagePicker is a imagePicker
 ```  
 2. Settings实例有许多自定义设置，可以仔细查看源码，源码中有详细注释，这里先介绍一些常用设置：
 
-1) 提供给外部，让外部决定需要什么资源 （照片 视频 音频） 注：默认有照片视频
+* 1) 提供给外部，让外部决定需要什么资源 （照片 视频 音频） 注：默认有照片视频
 ```  
 
 setting.fetch.assets.supportedMediaTypes = [.image, .video]  
 
   
 ```  
-2)  是否展示3dtouch图片
+* 2)  是否展示3dtouch图片
 ```  
 
 setting.fetch.preview.showLivePreview = true  
@@ -27,7 +27,7 @@ setting.fetch.preview.showLivePreview = true
 
   
 ```  
-3) 相册cell的高度
+* 3) 相册cell的高度
 ```  
 
 setting.list.albumsCellH = 58  
@@ -35,15 +35,14 @@ setting.list.albumsCellH = 58
   
 ```  
 
-4) cell之间的间隙大小
+* 4) cell之间的间隙大小
 ```  
   
 setting.list.spacing=100  
   
 ```  
-图5
 
-5) cell一行有多少个
+* 5) cell一行有多少个
 ```  
   
 setting.list.cellsPerRow= {(verticalSize, horizontalSize)in
@@ -73,20 +72,20 @@ setting.list.cellsPerRow= {(verticalSize, horizontalSize)in
 ```  
 
 
-6) 主题背景颜色 默认白色
+* 6) 主题背景颜色 默认白色
 ```  
   
 setting.theme.backgroundColor = .white  
   
 ```  
-7) 可以选择的最多张数 默认9张
+* 7) 可以选择的最多张数 默认9张
 ```  
   
 setting.selection.max = 9  
   
 ```  
 
-8) 可以选择最少的张数 默认为1张
+* 8) 可以选择最少的张数 默认为1张
 ```  
   
 setting.selection.min = 1  
