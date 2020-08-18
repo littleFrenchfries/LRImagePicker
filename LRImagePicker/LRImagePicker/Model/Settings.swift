@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 // Mark: - 照片选择设置类
-public class Settings {
+public class Settings: NSObject {
     deinit {
 //        print("=====================\(self)未内存泄露")
     }
