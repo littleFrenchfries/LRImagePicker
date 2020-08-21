@@ -38,6 +38,8 @@
 		78576B6124357A6300EDE45E /* LRImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78576B6024357A6300EDE45E /* LRImagePicker.swift */; };
 		78576B632435B6A700EDE45E /* ImagePickerControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78576B622435B6A700EDE45E /* ImagePickerControllerDelegate.swift */; };
 		78576B652435BAC400EDE45E /* AssetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78576B642435BAC400EDE45E /* AssetStore.swift */; };
+		785DC43F24EE141C0067A59D /* ClippingImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785DC43D24EE141C0067A59D /* ClippingImageViewController.swift */; };
+		785DC44324EE41280067A59D /* ClippingImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785DC44224EE41280067A59D /* ClippingImageCollectionViewCell.swift */; };
 		786BC6F92452BCA600145836 /* ToolHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786BC6F82452BCA600145836 /* ToolHeadView.swift */; };
 		786BC6FB2452BCBA00145836 /* ToolFootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786BC6FA2452BCBA00145836 /* ToolFootView.swift */; };
 		7880A38A243732F60018CD97 /* CheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7880A389243732F60018CD97 /* CheckmarkView.swift */; };
@@ -113,6 +115,8 @@
 		78576B6024357A6300EDE45E /* LRImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRImagePicker.swift; sourceTree = "<group>"; };
 		78576B622435B6A700EDE45E /* ImagePickerControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerControllerDelegate.swift; sourceTree = "<group>"; };
 		78576B642435BAC400EDE45E /* AssetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetStore.swift; sourceTree = "<group>"; };
+		785DC43D24EE141C0067A59D /* ClippingImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClippingImageViewController.swift; sourceTree = "<group>"; };
+		785DC44224EE41280067A59D /* ClippingImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClippingImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		786BC6F82452BCA600145836 /* ToolHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolHeadView.swift; sourceTree = "<group>"; };
 		786BC6FA2452BCBA00145836 /* ToolFootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolFootView.swift; sourceTree = "<group>"; };
 		7880A389243732F60018CD97 /* CheckmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkView.swift; sourceTree = "<group>"; };
@@ -243,6 +247,7 @@
 				78576B392431C70A00EDE45E /* Assets */,
 				78576B382431C70A00EDE45E /* Albums */,
 				78576B3A2431C73D00EDE45E /* Preview */,
+				785DC44124EE40E00067A59D /* Clipping */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 				78576B3124319D8D00EDE45E /* Assets */,
 				78576B3224319D8D00EDE45E /* Albums */,
 				78576B3324319D9500EDE45E /* Preview */,
+				785DC43C24EE13F00067A59D /* Clipping */,
 				78576B4F24335BAE00EDE45E /* Presentation */,
 			);
 			path = Controller;
@@ -346,6 +352,22 @@
 				78576B5324335BAE00EDE45E /* DropdownAnimator.swift */,
 			);
 			path = Dropdown;
+			sourceTree = "<group>";
+		};
+		785DC43C24EE13F00067A59D /* Clipping */ = {
+			isa = PBXGroup;
+			children = (
+				785DC43D24EE141C0067A59D /* ClippingImageViewController.swift */,
+			);
+			path = Clipping;
+			sourceTree = "<group>";
+		};
+		785DC44124EE40E00067A59D /* Clipping */ = {
+			isa = PBXGroup;
+			children = (
+				785DC44224EE41280067A59D /* ClippingImageCollectionViewCell.swift */,
+			);
+			path = Clipping;
 			sourceTree = "<group>";
 		};
 		7895C56E243EEF58005E1C29 /* Zoom */ = {
@@ -504,8 +526,10 @@
 				7895C574243EEF58005E1C29 /* ZoomAnimator.swift in Sources */,
 				783241B1246257E3003F07CC /* BackArrowView.swift in Sources */,
 				7880A394243C646D0018CD97 /* PreviewCollectionViewDataSource.swift in Sources */,
+				785DC43F24EE141C0067A59D /* ClippingImageViewController.swift in Sources */,
 				78576B5A24335BAE00EDE45E /* DropdownAnimator.swift in Sources */,
 				7880A396243C819F0018CD97 /* PreviewCollectionViewCell.swift in Sources */,
+				785DC44324EE41280067A59D /* ClippingImageCollectionViewCell.swift in Sources */,
 				783241B324652F08003F07CC /* OriginalView.swift in Sources */,
 				78576B652435BAC400EDE45E /* AssetStore.swift in Sources */,
 				786BC6F92452BCA600145836 /* ToolHeadView.swift in Sources */,

@@ -23,8 +23,9 @@ class ViewController: UIViewController {
         setting.fetch.preview.showLivePreview = true
         // Mark: 相册cell的高度
         setting.list.albumsCellH = 58
+        setting.fetch.preview.allowCrop = true
         // Mark: cell之间的间隙大小
-        setting.list.spacing = 100
+        setting.list.spacing = 2
         // Mark:cell一行有多少个
         setting.list.cellsPerRow = {(verticalSize, horizontalSize) in
             switch (verticalSize, horizontalSize) {

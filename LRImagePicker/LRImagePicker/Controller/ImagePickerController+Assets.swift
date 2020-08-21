@@ -36,6 +36,10 @@ extension ImagePickerController: AssetsViewControllerDelegate, PreviewCollection
         pushViewController(previewVC, animated: true)
     }
     
+    func assetsViewController(_ assetsViewController: AssetsViewController, toClipping asset: PHAsset) {
+        
+    }
+    
     func assetsViewController(_ assetsViewController: AssetsViewController, didSend assets: [PHAsset]) {
         imagePickerDelegate?.imagePicker(didFinishWithAssets: assets, isOriginal: assetsViewController.toolFootView.icon.isSelected)
         dismiss(animated: true)

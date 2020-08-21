@@ -15,6 +15,7 @@ protocol AssetsViewControllerDelegate: class {
     func assetsViewController(_ assetsViewController: AssetsViewController, didDeselectAsset asset: PHAsset)
     func assetsViewController(_ assetsViewController: AssetsViewController, didPressCell cell: AssetCollectionViewCell, displayingAsset asset: PHAsset, indexPath:IndexPath)
     func assetsViewController(_ assetsViewController: AssetsViewController, didLookUp asset: PHAsset)
+    func assetsViewController(_ assetsViewController: AssetsViewController, toClipping asset: PHAsset)
     func assetsViewController(_ assetsViewController: AssetsViewController, didSend assets: [PHAsset])
 }
 
@@ -165,7 +166,12 @@ extension AssetsViewController: UICollectionViewDelegate {
         guard let indexPath = collectionView.indexPathForItem(at: location) else { return }
         guard let cell = collectionView.cellForItem(at: indexPath) as? AssetCollectionViewCell else { return }
         let asset = fetchResult.object(at: indexPath.row)
-        delegate?.assetsViewController(self, didPressCell: cell, displayingAsset: asset, indexPath: indexPath)
+        if settings.fetch.preview.allowCrop {
+            delegate?.assetsViewController(self, toClipping: asset)
+        }else {
+            delegate?.assetsViewController(self, didPressCell: cell, displayingAsset: asset, indexPath: indexPath)
+        }
+        
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let assetCell = cell as? AssetCollectionViewCell else {

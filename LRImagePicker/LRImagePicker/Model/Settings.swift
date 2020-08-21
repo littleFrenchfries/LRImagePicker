@@ -75,8 +75,12 @@ public class Settings: NSObject {
         }
         // Mark: 显示资源
         public class Preview {
+            
+            // Mark: 是否需要剪裁
+            public lazy var allowCrop: Bool = false
+            
             // Mark: 是否展示3dtouch图片
-            public lazy var showLivePreview:Bool = false
+            public lazy var showLivePreview: Bool = false
             // Mark: 图片
             public lazy var photoOptions: PHImageRequestOptions = {
                 let options = PHImageRequestOptions()
