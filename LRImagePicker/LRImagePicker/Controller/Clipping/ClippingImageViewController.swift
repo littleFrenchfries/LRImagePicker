@@ -327,12 +327,12 @@ extension ClippingImageViewController: UICollectionViewDataSource, UICollectionV
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ClippingImageCollectionViewCell", for: indexPath) as? ClippingImageCollectionViewCell else { return UICollectionViewCell() }
         cell.cropRect = cropRect
         cell.asset = asset
-        cell.singleTapGestureBlock = {[weak self] in
-            
-        }
-        cell.imageProgressUpdateBlock = {[weak self](progress) in
-            
-        }
+//        cell.singleTapGestureBlock = {[weak self] in
+//
+//        }
+//        cell.imageProgressUpdateBlock = {[weak self](progress) in
+//
+//        }
         return cell
     }
     
