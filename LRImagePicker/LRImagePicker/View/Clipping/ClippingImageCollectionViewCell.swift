@@ -9,7 +9,11 @@
 import UIKit
 import PhotosUI
 class ClippingImageCollectionViewCell: UICollectionViewCell {
-    var asset: PHAsset?
+    var asset: PHAsset? {
+        didSet {
+            previewView?.asset = asset
+        }
+    }
     
     var singleTapGestureBlock: (() -> ())?
     
@@ -24,9 +28,9 @@ class ClippingImageCollectionViewCell: UICollectionViewCell {
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .black
+        backgroundColor = .white
         previewView = PhotoPreviewView(frame: bounds)
-        previewView?.asset = asset
+        
         previewView?.singleTapGestureBlock = {[weak self] in
             if let block = self?.singleTapGestureBlock {
                 block()
@@ -50,6 +54,7 @@ class ClippingImageCollectionViewCell: UICollectionViewCell {
 }
 
 class PhotoPreviewView: UIView {
+    private let imageManager = PHCachingImageManager.default()
     var imageView:UIImageView = UIImageView()
     var scrollView: UIScrollView = UIScrollView()
     var imageContainerView = UIView()
@@ -58,6 +63,18 @@ class PhotoPreviewView: UIView {
     var asset: PHAsset? {
         didSet {
             PHImageManager.default().cancelImageRequest(imageRequestID)
+            guard let newValue = asset else { return }
+            let options = PHImageRequestOptions()
+            // Mark: 允许从iCloud云中下载图片
+            options.isNetworkAccessAllowed = true
+            let aspectRatio = CGFloat(asset!.pixelWidth) / CGFloat(asset!.pixelHeight)
+            if aspectRatio > 1.5 {
+                scrollView.maximumZoomScale *= aspectRatio / 1.5
+            }
+            imageManager.requestImage(for: newValue, targetSize: UIScreen.main.bounds.size , contentMode: .aspectFill, options: options) { [weak self](image, _) in
+                guard let image = image else { return }
+                self?.imageView.image = image
+            }
         }
     }
     var singleTapGestureBlock: (() -> ())?
@@ -81,10 +98,8 @@ class PhotoPreviewView: UIView {
         scrollView.canCancelContentTouches = true
         scrollView.alwaysBounceVertical = false
         scrollView.setZoomScale(1.0, animated: false)
-        let aspectRatio = CGFloat(asset!.pixelWidth) / CGFloat(asset!.pixelHeight)
-        if aspectRatio > 1.5 {
-            scrollView.maximumZoomScale *= aspectRatio / 1.5
-        }
+        scrollView.backgroundColor = .clear
+        
         
         scrollView.maximumZoomScale = 4.0
         addSubview(scrollView)

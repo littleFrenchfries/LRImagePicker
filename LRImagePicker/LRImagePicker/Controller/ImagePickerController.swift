@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 // Mark: 获取com.apple.UIKit框架本地化中的Done 中英文
-fileprivate let localizedDone = Bundle(identifier: "com.apple.UIKit")?.localizedString(forKey: "Done", value: "Done", table: "") ?? "Done"
+let localizedDone = Bundle(identifier: "com.apple.UIKit")?.localizedString(forKey: "Done", value: "Done", table: "") ?? "Done"
 
 // Mark: -
 class ImagePickerController: UINavigationController {
@@ -34,6 +34,7 @@ class ImagePickerController: UINavigationController {
             return "Recently Deleted"
         }
     }
+    
     // Mark: -获取并筛选系统相册
     lazy var albums: [PHAssetCollection] = {
         let fetchOptions = settings.fetch.assets.options.copy() as! PHFetchOptions

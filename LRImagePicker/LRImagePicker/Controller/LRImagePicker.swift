@@ -16,8 +16,9 @@ public class LRImagePicker {
     static var onDeselection: ((_ asset: PHAsset) -> Void)?
     static var onCancel: ((_ assets: [PHAsset]) -> Void)?
     static var onFinish: ((_ assets: [PHAsset], _ isOriginal: Bool) -> Void)?
+    static var onClipping: ((_ image: UIImage) -> Void)?
     // Mark: - 跳转到照片选择器
-    public static func go(settings: Settings? = nil, animated: Bool = true, select: ((_ asset: PHAsset) -> Void)? = nil, deselect: ((_ asset: PHAsset) -> Void)? = nil, cancel: (([PHAsset]) -> Void)? = nil, finish: ((_ assets: [PHAsset], _ isOriginal: Bool) -> Void)? = nil, completion: (() -> Void)? = nil) {
+    public static func go(settings: Settings? = nil, animated: Bool = true, select: ((_ asset: PHAsset) -> Void)? = nil, clipping: ((_ image: UIImage) -> Void)? = nil, deselect: ((_ asset: PHAsset) -> Void)? = nil, cancel: (([PHAsset]) -> Void)? = nil, finish: ((_ assets: [PHAsset], _ isOriginal: Bool) -> Void)? = nil, completion: (() -> Void)? = nil) {
         authorize {
             let set: Settings
             if settings == nil {
@@ -32,6 +33,7 @@ public class LRImagePicker {
             onDeselection = deselect
             onCancel = cancel
             onFinish = finish
+            onClipping = clipping
             currentViewController?.present(imagePicker, animated: animated, completion: completion)
         }
     }
@@ -91,6 +93,10 @@ public class LRImagePicker {
 }
 
 extension ImagePickerController: ImagePickerControllerDelegate {
+    public func imagePicker(didClippingWithImage image: UIImage) {
+        LRImagePicker.onClipping?(image)
+    }
+    
     public func imagePicker(didSelectAsset asset: PHAsset) {
         LRImagePicker.onSelection?(asset)
     }

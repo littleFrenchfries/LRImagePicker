@@ -9,8 +9,16 @@
 import UIKit
 import Photos
 // Mark: 图片选择器 相册相关管理
-extension ImagePickerController: AssetsViewControllerDelegate, PreviewCollectionViewControllerDelegate {
-   
+extension ImagePickerController: AssetsViewControllerDelegate, PreviewCollectionViewControllerDelegate, MCClipImageViewControllerDelegate {
+    func MCClipImageDidCancel() {
+        dismiss(animated: true)
+    }
+    
+    func MCClipImageClipping(image: UIImage) {
+        imagePickerDelegate?.imagePicker(didClippingWithImage: image)
+        dismiss(animated: true)
+    }
+    
     func assetsViewController(_ assetsViewController: AssetsViewController, didSelectAsset asset: PHAsset) {
         imagePickerDelegate?.imagePicker(didSelectAsset: asset)
         assetsViewController.toolFootView.sendBtnIndex = assetsViewController.store.count
@@ -37,7 +45,9 @@ extension ImagePickerController: AssetsViewControllerDelegate, PreviewCollection
     }
     
     func assetsViewController(_ assetsViewController: AssetsViewController, toClipping asset: PHAsset) {
-        
+        let vc = MCClipImageViewController(asset: asset)
+        vc.delegate = self
+        pushViewController(vc, animated: true)
     }
     
     func assetsViewController(_ assetsViewController: AssetsViewController, didSend assets: [PHAsset]) {

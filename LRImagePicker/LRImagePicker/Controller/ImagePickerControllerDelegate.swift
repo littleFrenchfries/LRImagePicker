@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import Photos
 
 // Mark:  Delegate of the image picker
@@ -26,4 +27,7 @@ public protocol ImagePickerControllerDelegate: class {
     /// 用户点击取消按钮之后的相片
     /// - Parameter assets: 取消选中的相片
     func imagePicker(didCancelWithAssets assets: [PHAsset])
+    /// 用户裁剪之后的相片
+    /// - Parameter assets: 裁剪的相片
+    func imagePicker(didClippingWithImage image: UIImage)
 }

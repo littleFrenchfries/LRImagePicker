@@ -42,6 +42,11 @@
 		785DC44324EE41280067A59D /* ClippingImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785DC44224EE41280067A59D /* ClippingImageCollectionViewCell.swift */; };
 		786BC6F92452BCA600145836 /* ToolHeadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786BC6F82452BCA600145836 /* ToolHeadView.swift */; };
 		786BC6FB2452BCBA00145836 /* ToolFootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786BC6FA2452BCBA00145836 /* ToolFootView.swift */; };
+		78741AD624F4DD8B00629126 /* MCClipImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78741AD424F4DD8B00629126 /* MCClipImageViewController.swift */; };
+		78741AD724F4DD8B00629126 /* MCClipImageTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78741AD524F4DD8B00629126 /* MCClipImageTool.swift */; };
+		78741ADC24F4DFBC00629126 /* ClipImage_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 78741AD924F4DFBC00629126 /* ClipImage_cancel.png */; };
+		78741ADD24F4DFBC00629126 /* ClipImage_sure.png in Resources */ = {isa = PBXBuildFile; fileRef = 78741ADA24F4DFBC00629126 /* ClipImage_sure.png */; };
+		78741ADE24F4DFBC00629126 /* ClipImage_rotating.png in Resources */ = {isa = PBXBuildFile; fileRef = 78741ADB24F4DFBC00629126 /* ClipImage_rotating.png */; };
 		7880A38A243732F60018CD97 /* CheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7880A389243732F60018CD97 /* CheckmarkView.swift */; };
 		7880A38C243733290018CD97 /* NumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7880A38B243733290018CD97 /* NumberView.swift */; };
 		7880A38E2437336C0018CD97 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7880A38D2437336C0018CD97 /* SelectionView.swift */; };
@@ -119,6 +124,11 @@
 		785DC44224EE41280067A59D /* ClippingImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClippingImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		786BC6F82452BCA600145836 /* ToolHeadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolHeadView.swift; sourceTree = "<group>"; };
 		786BC6FA2452BCBA00145836 /* ToolFootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolFootView.swift; sourceTree = "<group>"; };
+		78741AD424F4DD8B00629126 /* MCClipImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCClipImageViewController.swift; sourceTree = "<group>"; };
+		78741AD524F4DD8B00629126 /* MCClipImageTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCClipImageTool.swift; sourceTree = "<group>"; };
+		78741AD924F4DFBC00629126 /* ClipImage_cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ClipImage_cancel.png; sourceTree = "<group>"; };
+		78741ADA24F4DFBC00629126 /* ClipImage_sure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ClipImage_sure.png; sourceTree = "<group>"; };
+		78741ADB24F4DFBC00629126 /* ClipImage_rotating.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ClipImage_rotating.png; sourceTree = "<group>"; };
 		7880A389243732F60018CD97 /* CheckmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkView.swift; sourceTree = "<group>"; };
 		7880A38B243733290018CD97 /* NumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberView.swift; sourceTree = "<group>"; };
 		7880A38D2437336C0018CD97 /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
@@ -357,7 +367,10 @@
 		785DC43C24EE13F00067A59D /* Clipping */ = {
 			isa = PBXGroup;
 			children = (
+				78741AD524F4DD8B00629126 /* MCClipImageTool.swift */,
+				78741AD424F4DD8B00629126 /* MCClipImageViewController.swift */,
 				785DC43D24EE141C0067A59D /* ClippingImageViewController.swift */,
+				78741AD824F4DFBC00629126 /* Images */,
 			);
 			path = Clipping;
 			sourceTree = "<group>";
@@ -368,6 +381,16 @@
 				785DC44224EE41280067A59D /* ClippingImageCollectionViewCell.swift */,
 			);
 			path = Clipping;
+			sourceTree = "<group>";
+		};
+		78741AD824F4DFBC00629126 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				78741AD924F4DFBC00629126 /* ClipImage_cancel.png */,
+				78741ADA24F4DFBC00629126 /* ClipImage_sure.png */,
+				78741ADB24F4DFBC00629126 /* ClipImage_rotating.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		7895C56E243EEF58005E1C29 /* Zoom */ = {
@@ -485,8 +508,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				783EC077242844CF00E6CDA8 /* LaunchScreen.storyboard in Resources */,
+				78741ADE24F4DFBC00629126 /* ClipImage_rotating.png in Resources */,
+				78741ADD24F4DFBC00629126 /* ClipImage_sure.png in Resources */,
 				783EC074242844CF00E6CDA8 /* Assets.xcassets in Resources */,
 				783EC072242844CA00E6CDA8 /* Main.storyboard in Resources */,
+				78741ADC24F4DFBC00629126 /* ClipImage_cancel.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +557,7 @@
 				7880A396243C819F0018CD97 /* PreviewCollectionViewCell.swift in Sources */,
 				785DC44324EE41280067A59D /* ClippingImageCollectionViewCell.swift in Sources */,
 				783241B324652F08003F07CC /* OriginalView.swift in Sources */,
+				78741AD624F4DD8B00629126 /* MCClipImageViewController.swift in Sources */,
 				78576B652435BAC400EDE45E /* AssetStore.swift in Sources */,
 				786BC6F92452BCA600145836 /* ToolHeadView.swift in Sources */,
 				7880A392243C50720018CD97 /* PreviewCollectionViewController.swift in Sources */,
@@ -551,6 +578,7 @@
 				7895C576243EF02A005E1C29 /* ImageView.swift in Sources */,
 				783EC06D242844CA00E6CDA8 /* SceneDelegate.swift in Sources */,
 				783EC0A1242A0F1800E6CDA8 /* Settings.swift in Sources */,
+				78741AD724F4DD8B00629126 /* MCClipImageTool.swift in Sources */,
 				78576B352431A1D300EDE45E /* AssetsViewController.swift in Sources */,
 				78576B462433175000EDE45E /* AlbumsViewController.swift in Sources */,
 				78576B3C2431C7D100EDE45E /* AssetCollectionViewCell.swift in Sources */,

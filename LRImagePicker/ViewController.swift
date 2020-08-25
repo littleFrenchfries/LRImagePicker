@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var uiimageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -47,10 +48,12 @@ class ViewController: UIViewController {
         setting.selection.max = 9
         // Mark:  可以选择最少的张数 默认为1张
         setting.selection.min = 1
-        LRImagePicker.go(settings:setting ,finish: { (assets, isOriginal) in
-            print("\(assets)\(isOriginal)")
+        LRImagePicker.go(settings:setting, clipping:{[weak self] image in
+            self?.uiimageView.image = image
+        },finish: { (assets, isOriginal) in
+                print("\(assets)\(isOriginal)")
         })
-    }
+}
     
 }
 
