@@ -154,18 +154,14 @@ class MCClipImageViewController: UIViewController {
     
     lazy var cancelButton: UIButton = {
         let button = UIButton.init(type: UIButton.ButtonType.custom)
-        let path = Bundle.main.path(forResource: "ClipImage_cancel", ofType: "png", inDirectory: nil)
-        let image = UIImage.init(contentsOfFile: path!)
-        button.setImage(image, for: .normal)
+        button.setImage(UIImage(named: "ClipImage_cancel"), for: .normal)
         button.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
         return button
     }()
     
     lazy var rotatingButton: UIButton = {
         let button = UIButton.init(type: UIButton.ButtonType.custom)
-        let path = Bundle.main.path(forResource: "ClipImage_rotating", ofType: "png", inDirectory: nil)
-        let image = UIImage.init(contentsOfFile: path!)
-        button.setImage(image, for: .normal)
+        button.setImage(UIImage(named: "ClipImage_rotating"), for: .normal)
         button.addTarget(self, action: #selector(rotatingButtonClicked), for: .touchUpInside)
 
         return button
@@ -174,9 +170,7 @@ class MCClipImageViewController: UIViewController {
     
     lazy var sureButton: UIButton = {
         let button = UIButton.init(type: UIButton.ButtonType.custom)
-        let path = Bundle.main.path(forResource: "ClipImage_sure", ofType: "png", inDirectory: nil)
-        let image = UIImage.init(contentsOfFile: path!)
-        button.setImage(image, for: .normal)
+        button.setImage(UIImage(named: "ClipImage_sure"), for: .normal)
         button.addTarget(self, action: #selector(sureButtonClicked), for: .touchUpInside)
         return button
     }()
