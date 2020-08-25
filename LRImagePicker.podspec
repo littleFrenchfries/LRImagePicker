@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'LRImagePicker'
-  s.version          = '0.0.8'
+  s.version          = '0.0.9'
   s.summary          = 'LRImagePicker'
   s.swift_version = '5.1'
 # This description is used to generate tags and improve search results.
@@ -33,7 +33,7 @@ LRImagePicker is a imagePicker
   s.source_files = 'LRImagePicker/LRImagePicker/**/*'
   
   s.resource_bundles = {
-    'LRImagePicker' => ['LRImagePicker/Assets/*.png']
+    'LRImagePicker' => ['LRImagePicker/LRImagePicker.bundle']
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
