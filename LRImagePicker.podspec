@@ -32,9 +32,9 @@ LRImagePicker is a imagePicker
 
   s.source_files = 'LRImagePicker/LRImagePicker/**/*'
   
-  s.resource_bundles = {
-    'LRImagePicker' => ['LRImagePicker/LRImagePicker.bundle']
-  }
+  #s.resource_bundles = {
+  #  'LRImagePicker' => ['LRImagePicker/LRImagePicker.bundle']
+  #}
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
