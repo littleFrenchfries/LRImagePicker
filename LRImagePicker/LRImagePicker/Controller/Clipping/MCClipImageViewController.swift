@@ -154,20 +154,22 @@ class MCClipImageViewController: UIViewController {
     
     lazy var cancelButton: UIButton = {
         let button = UIButton.init(type: UIButton.ButtonType.custom)
-        let bundle = Bundle.init(path: Bundle.init(for: Self.self).path(forResource: "LRImagePicker", ofType: "bundle")!)
-        let path = bundle?.path(forResource: "ClipImage_cancel", ofType: "png", inDirectory: nil)
-        let image = UIImage.init(contentsOfFile: path!)
-        button.setImage(image, for: .normal)
+//        let path = Bundle.init(for: Self.self).path(forResource: "ClipImage_cancel", ofType: "png", inDirectory: "LRImagePicker.bundle")
+//        let image = UIImage.init(contentsOfFile: path!)
+//        button.setImage(image, for: .normal)
+        button.setTitle(Cancel, for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
         return button
     }()
     
     lazy var rotatingButton: UIButton = {
         let button = UIButton.init(type: UIButton.ButtonType.custom)
-        let bundle = Bundle.init(path: Bundle.init(for: Self.self).path(forResource: "LRImagePicker", ofType: "bundle")!)
-        let path = bundle?.path(forResource: "ClipImage_rotating", ofType: "png", inDirectory: nil)
-        let image = UIImage.init(contentsOfFile: path!)
-        button.setImage(image, for: .normal)
+//        let path = Bundle.init(for: Self.self).path(forResource: "ClipImage_rotating", ofType: "png", inDirectory: "LRImagePicker.bundle")
+//        let image = UIImage.init(contentsOfFile: path!)
+//        button.setImage(image, for: .normal)
+       
         button.addTarget(self, action: #selector(rotatingButtonClicked), for: .touchUpInside)
 
         return button
@@ -176,13 +178,16 @@ class MCClipImageViewController: UIViewController {
     
     lazy var sureButton: UIButton = {
         let button = UIButton.init(type: UIButton.ButtonType.custom)
-        let bundle = Bundle.init(path: Bundle.init(for: Self.self).path(forResource: "LRImagePicker", ofType: "bundle")!)
-        let path = bundle?.path(forResource: "ClipImage_sure", ofType: "png", inDirectory: nil)
-        let image = UIImage.init(contentsOfFile: path!)
-        button.setImage(image, for: .normal)
+//        let path = Bundle.init(for: Self.self).path(forResource: "ClipImage_sure", ofType: "png", inDirectory: "LRImagePicker.bundle")
+//        let image = UIImage.init(contentsOfFile: path!)
+//        button.setImage(image, for: .normal)
+        button.setTitle(Done, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor(red: 255, green: 180, blue: 0, alpha: 1), for: .normal)
         button.addTarget(self, action: #selector(sureButtonClicked), for: .touchUpInside)
         return button
     }()
+
 }
 
 //MARK: 通知回调，闭包回调，点击事件
@@ -221,6 +226,48 @@ extension MCClipImageViewController {
         imageView.image = targetImage
         settingUIDataWithImage(targetImage, size: cropSize)
     }
+    
+    // Mark: - 本地相册 最近取消的中英文，暂时没找到系统中的获取方法
+    var Cancel: String {
+        guard let localeLanguageCode = NSLocale.current.languageCode else { return "取消" }
+        if localeLanguageCode == "zh"  {
+            return "取消"
+        } else {
+            return "Cancel"
+        }
+    }
+    
+    // Mark: - 本地相册 最近完成的中英文，暂时没找到系统中的获取方法
+    var Done: String {
+        guard let localeLanguageCode = NSLocale.current.languageCode else { return "取消" }
+        if localeLanguageCode == "zh"  {
+            return "完成"
+        } else {
+            return "Done"
+        }
+    }
+    
+    var bottomHeight: Int {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        let machineMirror = Mirror(reflecting: systemInfo.machine)
+        let identifier = machineMirror.children.reduce("") { identifier, element in
+            guard let value = element.value as? Int8, value != 0 else { return identifier }
+            return identifier + String(UnicodeScalar(UInt8(value)))
+        }
+        switch identifier {
+        case "iPhone10,3": fallthrough
+        case "iPhone10,6": fallthrough
+        case "iPhone11,8": fallthrough
+        case "iPhone11,2": fallthrough
+        case "iPhone11,4": fallthrough
+        case "iPhone11,6": fallthrough
+        case "iPhone12,1": fallthrough
+        case "iPhone12,3": fallthrough
+        case "iPhone12,5": return 34
+        default: return 10
+        }
+    }
 }
 
 
@@ -240,15 +287,30 @@ extension MCClipImageViewController {
         
         view.addSubview(cancelButton)
         view.addSubview(sureButton)
-        view.addSubview(rotatingButton)
+//        view.addSubview(rotatingButton)
         
         
-        let y = selfHeight - 25 - MCSafeAreaBottomHeight - 20  - MCStatusBarHeight - MCNavigationBarHeight(self)
-        cancelButton.frame = CGRect.init(x: 20, y: y, width: 25, height: 25)
-        sureButton.frame = CGRect.init(x: selfWidth - 20 - 30, y: y, width: 25, height: 25)
-        rotatingButton.frame = CGRect.init(x: selfWidth/2 - 15, y: y, width: 25, height: 25)
+//        let y = selfHeight - 25 - MCSafeAreaBottomHeight - 20  - MCStatusBarHeight - MCNavigationBarHeight(self)+
+//        cancelButton.frame = CGRect.init(x: 20, y: y, width: 25, height: 25)
+//        sureButton.frame = CGRect.init(x: selfWidth - 20 - 30, y: y, width: 25, height: 25)
+//        rotatingButton.frame = CGRect.init(x: selfWidth/2 - 15, y: y, width: 25, height: 25)
 
-        
+        if #available(iOS 11.0, *) {
+                   NSLayoutConstraint.activate([
+                       cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+                       cancelButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -CGFloat(bottomHeight)),
+                       sureButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+                       sureButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -CGFloat(bottomHeight)),
+                       
+                   ])
+               } else {
+                   NSLayoutConstraint.activate([
+                       cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+                       cancelButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+                       sureButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+                       sureButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+                   ])
+               }
         overLayView.frame = view.frame
         scrollView.frame = CGRect.init(x: 0, y: 0, width: selfWidth, height: selfHeight)
     }
