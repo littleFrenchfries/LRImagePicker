@@ -177,7 +177,9 @@ extension AssetsViewController: UICollectionViewDelegate {
         guard let assetCell = cell as? AssetCollectionViewCell else {
             return
         }
-        
+        if settings.fetch.preview.allowCrop {
+            assetCell.selectionView.isHidden = true
+        }
         assetCell.didSelectItemAt = { [unowned self] (tap) in
             self.assetCollection(didSelectItemAt: tap)
         }
@@ -201,7 +203,7 @@ extension AssetsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         guard store.count < settings.selection.max else {
-            let alertController = UIAlertController(title: "提示", message: "您最多只能选择9项", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: "提示", message: "您最多只能选择\(settings.selection.max)项", preferredStyle: UIAlertController.Style.alert)
             let cancelAction = UIAlertAction(title: "我知道了", style: UIAlertAction.Style.cancel, handler: nil )
             alertController.addAction(cancelAction);
             self.present(alertController, animated: true, completion: nil)

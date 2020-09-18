@@ -16,7 +16,7 @@ class AssetCollectionViewCell: UICollectionViewCell {
     // Mark: 展示的3d图片的标记
     let liveImageView: UIImageView = UIImageView(frame: .zero)
     // Mark:代码标记图片
-    private let selectionView: SelectionView = SelectionView(frame: .zero)
+    let selectionView: SelectionView = SelectionView(frame: .zero)
     // Mark: 被选中时的阴影
     private let selectionOverlayView: UIView = UIView(frame: .zero)
     var settings: Settings! {
