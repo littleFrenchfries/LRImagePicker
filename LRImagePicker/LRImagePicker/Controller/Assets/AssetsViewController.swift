@@ -186,6 +186,9 @@ extension AssetsViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if settings.fetch.preview.allowCrop {
+            return
+        }
         let asset = fetchResult.object(at: indexPath.row)
         store.append(asset)
         delegate?.assetsViewController(self, didSelectAsset: asset)
@@ -193,6 +196,9 @@ extension AssetsViewController: UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if settings.fetch.preview.allowCrop {
+            return
+        }
         let asset = fetchResult.object(at: indexPath.row)
         store.remove(asset)
         delegate?.assetsViewController(self, didDeselectAsset: asset)

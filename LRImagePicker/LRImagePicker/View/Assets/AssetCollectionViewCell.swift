@@ -29,6 +29,9 @@ class AssetCollectionViewCell: UICollectionViewCell {
     // Mark: 更新被选中状态
     override var isSelected: Bool {
         didSet {
+            if settings.fetch.preview.allowCrop {
+                return
+            }
             guard oldValue != isSelected else { return }
             if UIView.areAnimationsEnabled {
                 UIView.animate(withDuration: TimeInterval(0.1), animations: { [weak weakSelf = self]() -> Void in
