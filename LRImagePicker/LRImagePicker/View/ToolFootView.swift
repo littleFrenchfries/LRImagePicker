@@ -15,7 +15,11 @@ class ToolFootView: UIView {
     let originBtn = UIButton(type: .custom)
     let sendBtn = UIButton(type: .custom)
     var settings: Settings! {
-        didSet { icon.settings = settings }
+        didSet { icon.settings = settings
+            if settings.fetch.preview.allowCrop {
+                lookBtn.isHidden = true
+            }
+        }
     }
     let icon: OriginalView = OriginalView(frame: .zero)
     var count = 0
