@@ -85,12 +85,16 @@ class AssetsViewController: UIViewController {
         ])
         toolFootView.lookBlock = {[weak self] in
             if let delegate = self?.delegate {
-                delegate.assetsViewController(self!, didLookUp: self!.store.assets.first!)
+                if self!.store.assets.count > 0 {
+                    delegate.assetsViewController(self!, didLookUp: self!.store.assets.first!)
+                }
             }
         }
         toolFootView.sendBlock = {[weak self] in
             if let delegate = self?.delegate {
-                delegate.assetsViewController(self!, didSend: self!.store.assets)
+                if self!.store.assets.count > 0 {
+                    delegate.assetsViewController(self!, didSend: self!.store.assets)
+                }
             }
         }
     }

@@ -68,6 +68,8 @@ class ImagePickerController: UINavigationController {
         }
         
         navigationBar.barTintColor = settings.theme.navigationBarColor
+        navigationBar.setBackgroundImage(imageWithColor(color: settings.theme.navigationBarColor), for: .default)
+        navigationBar.shadowImage = UIImage()
         // Mark: 关闭导航条半透明状态
         navigationBar.isTranslucent = false
         navigationBar.isOpaque = true
@@ -111,5 +113,15 @@ class ImagePickerController: UINavigationController {
     
     @objc func cancelButtonClick(_ sender: UIButton) {
         cancelButtonPressed(sender)
+    }
+    func imageWithColor(color: UIColor) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size)
+        guard let context = UIGraphicsGetCurrentContext() else { return UIImage() }
+        context.setFillColor(color.cgColor);
+        context.fill(rect);
+        guard let theImage = UIGraphicsGetImageFromCurrentImageContext() else { return UIImage() };
+        UIGraphicsEndImageContext();
+        return theImage
     }
 }
