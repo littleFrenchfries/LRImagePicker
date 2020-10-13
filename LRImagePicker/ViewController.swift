@@ -19,12 +19,12 @@ class ViewController: UIViewController {
     @IBAction func singalClick(_ sender: Any) {
         let setting = Settings()
         // Mark: 提供给外部，让外部决定需要什么资源 （照片 视频 音频） 注：默认有照片视频
-        setting.fetch.assets.supportedMediaTypes = [.image]
+        setting.fetch.assets.supportedMediaTypes = [.video]
         // Mark: 是否展示3dtouch图片
         setting.fetch.preview.showLivePreview = true
         // Mark: 相册cell的高度
         setting.list.albumsCellH = 58
-        setting.fetch.preview.allowCrop = true
+//        setting.fetch.preview.allowCrop = true
         // Mark: cell之间的间隙大小
         setting.list.spacing = 2
         // Mark:cell一行有多少个

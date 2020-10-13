@@ -156,6 +156,13 @@ class PreviewCollectionViewController: UIViewController {
     func selectLink() {
         let asset = fetchResult.object(at: currentIndex)
         if store.index(of: asset) == nil {
+            if store.count >= settings.selection.max {
+                let alertController = UIAlertController(title: "提示", message: "您最多只能选择\(settings.selection.max)项", preferredStyle: UIAlertController.Style.alert)
+                let cancelAction = UIAlertAction(title: "我知道了", style: UIAlertAction.Style.cancel, handler: nil )
+                alertController.addAction(cancelAction);
+                self.present(alertController, animated: true, completion: nil)
+                return
+            }
             store.append(asset)
             indexPathsForSelectedItems?.append(IndexPath(row: currentIndex, section: 0))
             toolHeadView.selectionView.selectionIndex = store.index(of: asset)

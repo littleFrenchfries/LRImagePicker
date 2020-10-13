@@ -19,6 +19,7 @@ class AssetCollectionViewCell: UICollectionViewCell {
     let selectionView: SelectionView = SelectionView(frame: .zero)
     // Mark: 被选中时的阴影
     private let selectionOverlayView: UIView = UIView(frame: .zero)
+    var durationSecend = 0.0
     var settings: Settings! {
         didSet { selectionView.settings = settings }
     }
@@ -143,7 +144,7 @@ class AssetCollectionViewCell: UICollectionViewCell {
     ///
     /// - Parameter selected: 是否被选中
     ///
-    private func updateAlpha(_ selected: Bool) {
+    func updateAlpha(_ selected: Bool) {
         self.selectionView.isSelected = selected
         if selected {
             self.selectionOverlayView.alpha = 0.3

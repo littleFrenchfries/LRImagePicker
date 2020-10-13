@@ -24,6 +24,8 @@ class AssetsViewController: UIViewController {
 //        print("=====================\(self)未内存泄露")
     }
     weak var delegate: AssetsViewControllerDelegate?
+    // Mark: 计算时间差
+    private let durationFormatter = DateComponentsFormatter()
     var settings: Settings! {
         didSet { dataSource?.settings = settings }
     }
@@ -170,6 +172,12 @@ extension AssetsViewController: UICollectionViewDelegate {
         guard let indexPath = collectionView.indexPathForItem(at: location) else { return }
         guard let cell = collectionView.cellForItem(at: indexPath) as? AssetCollectionViewCell else { return }
         let asset = fetchResult.object(at: indexPath.row)
+        durationFormatter.allowedUnits = [.second]
+        let str = durationFormatter.string(from: asset.duration) ?? ""
+        let int = Float(str) ?? 0
+        if asset.mediaType == .video && settings.fetch.preview.videoLong < int  {
+            return
+        }
         if settings.fetch.preview.allowCrop {
             delegate?.assetsViewController(self, toClipping: asset)
         }else {
@@ -193,7 +201,13 @@ extension AssetsViewController: UICollectionViewDelegate {
         if settings.fetch.preview.allowCrop {
             return
         }
+        durationFormatter.allowedUnits = [.second]
         let asset = fetchResult.object(at: indexPath.row)
+        let str = durationFormatter.string(from: asset.duration) ?? ""
+        let int = Float(str) ?? 0
+        if asset.mediaType == .video && settings.fetch.preview.videoLong < int  {
+            return
+        }
         store.append(asset)
         delegate?.assetsViewController(self, didSelectAsset: asset)
         updateSelectionIndexForCell(at: indexPath)
@@ -203,7 +217,13 @@ extension AssetsViewController: UICollectionViewDelegate {
         if settings.fetch.preview.allowCrop {
             return
         }
+        durationFormatter.allowedUnits = [.second]
         let asset = fetchResult.object(at: indexPath.row)
+        let str = durationFormatter.string(from: asset.duration) ?? ""
+        let int = Float(str) ?? 0
+        if asset.mediaType == .video && settings.fetch.preview.videoLong < int  {
+            return
+        }
         store.remove(asset)
         delegate?.assetsViewController(self, didDeselectAsset: asset)
         for indexPath in collectionView.indexPathsForSelectedItems ?? [] {

@@ -13,6 +13,16 @@ class VideoCollectionViewCell: AssetCollectionViewCell {
     let gradientView = GradientView(frame: .zero)
     // Mark: 视频时长
     let durationLabel = UILabel(frame: .zero)
+    let noAlowView = UIView(frame: .zero)
+    override var settings: Settings! {
+        didSet {
+            if settings.fetch.preview.videoLong < Float(durationSecend)  {
+                noAlowView.isHidden = false
+            }else {
+                noAlowView.isHidden = true
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,6 +52,15 @@ class VideoCollectionViewCell: AssetCollectionViewCell {
             durationLabel.bottomAnchor.constraint(equalTo: gradientView.bottomAnchor, constant: -4),
             durationLabel.leadingAnchor.constraint(equalTo: gradientView.leadingAnchor, constant: -8),
             durationLabel.trailingAnchor.constraint(equalTo: gradientView.trailingAnchor, constant: -8)
+        ])
+        noAlowView.backgroundColor = UIColor.init(white: 1, alpha: 0.5)
+        noAlowView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(noAlowView)
+        NSLayoutConstraint.activate([
+            noAlowView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
+            noAlowView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
+            noAlowView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
+            noAlowView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0)
         ])
     }
     

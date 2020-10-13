@@ -64,7 +64,19 @@ class AssetsCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         if asset.mediaType == .video {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(VideoCollectionViewCell.self), for: indexPath) as! VideoCollectionViewCell
             let videoCell = cell as! VideoCollectionViewCell
+            // Mark: 只要分和秒
+            durationFormatter.allowedUnits = [.minute, .second]
             videoCell.durationLabel.text = durationFormatter.string(from: asset.duration)
+            // Mark: 只要分和秒
+            durationFormatter.allowedUnits = [.second]
+            let str = durationFormatter.string(from: asset.duration) ?? ""
+            let int = Float(str) ?? 0
+            videoCell.durationSecend = Double(int)
+            if settings.fetch.preview.videoLong < int {
+                videoCell.isUserInteractionEnabled = false
+            }else {
+                videoCell.isUserInteractionEnabled = true
+            }
         } else {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(AssetCollectionViewCell.self), for: indexPath) as! AssetCollectionViewCell
         }

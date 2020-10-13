@@ -78,7 +78,8 @@ public class Settings: NSObject {
             
             // Mark: 是否需要剪裁
             public lazy var allowCrop: Bool = false
-            
+            // Mark: 是否需要剪裁
+            public lazy var videoLong: Float = 20
             // Mark: 是否展示3dtouch图片
             public lazy var showLivePreview: Bool = false
             // Mark: 图片

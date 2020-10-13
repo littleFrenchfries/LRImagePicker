@@ -65,6 +65,9 @@ public class LRImagePicker {
             resultVC = _topVC(window?.rootViewController)
             // Fallback on earlier versions
         }
+        if resultVC == nil {
+            resultVC = _topVC(UIApplication.shared.keyWindow?.rootViewController)
+        }
         while resultVC?.presentedViewController != nil {
             resultVC = _topVC(resultVC?.presentedViewController)
         }
